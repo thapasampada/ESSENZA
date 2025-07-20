@@ -1,10 +1,23 @@
 import React from 'react';
 import {NavLink, Link} from 'react-router-dom';
-import {GiDelicatePerfume} from 'react-icons/gi';
-import { IoHomeSharp } from "react-icons/io5";
+import toast from 'react-hot-toast';
+import { GiDelicatePerfume } from 'react-icons/gi';
+import { IoHomeSharp } from 'react-icons/io5';
+import { useAuth } from '../../context/auth';
 
 const Header = () => {
-    return (
+  const [auth, setAuth] = useAuth();
+  const handleLogout = () => {
+    setAuth({
+      ...auth,
+      user: null,
+      token: "",
+    });
+    localStorage.removeItem("auth");
+    toast.success("Logout Successfully");
+  };
+  return (
+
         <>
           <nav className="navbar navbar-expand-lg bg-body-tertiary">
   <div className="container-fluid">
@@ -20,22 +33,44 @@ const Header = () => {
         <li className="nav-item">
           <NavLink to="/quiz" className="nav-link">Perfume Quiz</NavLink>
         </li>
-        <li className="nav-item">
-          <NavLink to="/register" className="nav-link">SignUp</NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink to="/login" className="nav-link">LogIn</NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink to="/cart" className="nav-link">Cart(0)</NavLink>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-        </>
-    );
+       
+     {!auth?.user ? (
+                <>
+                  <li className="nav-item">
+                    <NavLink to="/register" className="nav-link">
+                      Register
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink to="/login" className="nav-link">
+                      Login
+                    </NavLink>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item">
+                    <NavLink
+                      onClick={handleLogout}
+                      to="/login"
+                      className="nav-link"
+                    >
+                      Logout
+                    </NavLink>
+                  </li>
+                </>
+              )}
+              <li className="nav-item">
+                <NavLink to="/cart" className="nav-link">
+                  Cart (0)
+                </NavLink>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </>
+  );
 };
 
 export default Header;

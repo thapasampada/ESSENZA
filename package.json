@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "main": "server.js",
   "type": "module",
+  
   "scripts": {
-    "start": "node server.js",
-    "server": "nodemon server.js",
-    "client": "npm start --prefix./client",
-    "dev": "concurrently 'npm run server' 'npm run client'"
-  },
+  "start": "node server.js",
+  "server": "nodemon server.js",
+  "client": "npm start --prefix ./client",
+  "dev": "concurrently \"npm run server\" \"npm run client\""
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/thapasampada/ESSENZA.git"
@@ -18,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^6.0.0",
+    "bootstrap": "^5.3.7",
     "colors": "^1.4.0",
     "concurrently": "^9.2.0",
     "cors": "^2.8.5",

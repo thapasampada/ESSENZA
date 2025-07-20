@@ -7,12 +7,17 @@ const router = express.Router();
 
 //routing
 //REGISTER || METHOD POST
-router.post('/register', registerController);
+router.post("/register", registerController);
 
 //LOGIN || METHOD POST
-router.post('/login', loginController);
+router.post("/login", loginController);
 
 //test route
-router.get('/test',requireSignIn, isAdmin ,testController);
+router.get("/test",requireSignIn, isAdmin ,testController);
+
+//protected route auth
+router.get("/user-auth" , requireSignIn,(req,res)=>{
+    res.status(200).send({ok:true});
+});
 
 export default router;
